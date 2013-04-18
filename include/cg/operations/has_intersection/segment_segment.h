@@ -25,6 +25,7 @@ namespace cg
       for (size_t l = 0; l != 2; ++l)
          ab[l] = orientation(b[0], b[1], a[l]);
 
+        //dd
       return ab[0] != ab[1];
    }
 }
