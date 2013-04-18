@@ -4,3 +4,4 @@ project(operations-example)
 
 add_executable(triangle_contains_point triangle_contains_point.cpp)
 target_link_libraries(triangle_contains_point visualization ${GMP_LIBRARIES})
+
