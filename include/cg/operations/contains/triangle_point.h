@@ -23,10 +23,13 @@ namespace cg
          return contains(s, q);
       }
 
-      for (size_t l = 0, lp = 2; l != 3; lp = l++)
-         if (opposite(orientation(t[lp], t[l], q), to))
-             return false;
-
+      for (size_t i = 0; i < 3; i++)
+      {
+         if (opposite(orientation(t[i], t[(i + 1) % 3], q), to))
+         {
+            return false;
+         }
+      }
       return true;
    }
 }
