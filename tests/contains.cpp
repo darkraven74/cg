@@ -21,6 +21,28 @@ TEST(contains, triangle_point)
    EXPECT_FALSE(cg::contains(t, point_2(0, 1)));
    EXPECT_FALSE(cg::contains(t, point_2(2, 1)));
    EXPECT_FALSE(cg::contains(t, point_2(1, -1)));
+
+   cg::triangle_2 t2(point_2(0, 0), point_2(10, 0), point_2(0, 10));
+   EXPECT_TRUE(cg::contains(t2, point_2(0, 0)));
+   EXPECT_TRUE(cg::contains(t2, point_2(0, 10)));
+   EXPECT_TRUE(cg::contains(t2, point_2(0, 5)));
+   EXPECT_TRUE(cg::contains(t2, point_2(5, 0)));
+   EXPECT_TRUE(cg::contains(t2, point_2(5, 5)));
+   EXPECT_TRUE(cg::contains(t2, point_2(3, 7)));
+   EXPECT_TRUE(cg::contains(t2, point_2(2, 2)));
+   EXPECT_TRUE(cg::contains(t2, point_2(4, 0.1)));
+
+   EXPECT_FALSE(cg::contains(t2, point_2(-4, -4)));
+   EXPECT_FALSE(cg::contains(t2, point_2(0, -0.5)));
+   EXPECT_FALSE(cg::contains(t2, point_2(100, 100)));
+   EXPECT_FALSE(cg::contains(t2, point_2(11, 0)));
+   EXPECT_FALSE(cg::contains(t2, point_2(0, 11)));
+   EXPECT_FALSE(cg::contains(t2, point_2(5, 5.2)));
+   EXPECT_FALSE(cg::contains(t2, point_2(-0.1, -0.1)));
+   EXPECT_FALSE(cg::contains(t2, point_2(10, 10)));
+   EXPECT_FALSE(cg::contains(t2, point_2(5, -0.1)));
+   EXPECT_FALSE(cg::contains(t2, point_2(10, 10.1)));
+
 }
 
 TEST(contains, segment_point)
