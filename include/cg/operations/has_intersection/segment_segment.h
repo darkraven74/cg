@@ -7,7 +7,7 @@
 namespace cg
 {
    template<class Scalar>
-   inline bool has_intersection(segment_2t<Scalar> const & a, segment_2t<Scalar> const & b)
+   bool has_intersection(segment_2t<Scalar> const & a, segment_2t<Scalar> const & b)
    {
 
       orientation_t ab1, ab2;
