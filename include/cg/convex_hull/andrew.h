@@ -7,26 +7,30 @@
 
 namespace cg
 {
-   template <class BidIter>
-   BidIter andrew_hull(BidIter p, BidIter q)
+   template <class RandIter>
+   RandIter andrew_hull(RandIter p, RandIter q)
    {
       if (p == q)
          return p;
 
       std::iter_swap(p, std::min_element(p, q));
-      BidIter t = p;
+      RandIter t = p;
       t++;
       if (t == q)
-         return p;
-      std::iter_swap(t, std::max_element(p, q));
+         return t;
+
+      std::iter_swap(t, std::max_element(t, q));
       t++;
-      BidIter pmin = p;
-      BidIter pmax = p;
+      if (t == q)
+         return t;
+
+      RandIter pmin = p;
+      RandIter pmax = p;
       pmax++;
 
-      BidIter i1 = std::partition(t, q, [pmin, pmax] (point_2 const & a)
+      RandIter i1 = std::partition(t, q, [pmin, pmax] (point_2 const & a)
                               {
-                                 return (orientation(*pmin, *pmax, a) == CG_RIGHT);
+                                 return (orientation(*pmin, *pmax, a) != CG_LEFT);
                               }
                      );
       i1--;
