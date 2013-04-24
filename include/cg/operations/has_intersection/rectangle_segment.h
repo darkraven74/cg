@@ -10,7 +10,7 @@ namespace cg
    template<class Scalar>
    bool has_intersection(rectangle_2t<Scalar> const& r, segment_2t<Scalar> const& s)
    {
-      return r.contains(s[0]) ||
+      return r.contains(s[0]) || r.contains(s[1]) ||
              has_intersection(segment_2t<Scalar>(r.corner(0, 0), r.corner(0, 1)), s) ||
              has_intersection(segment_2t<Scalar>(r.corner(0, 1), r.corner(1, 1)), s) ||
              has_intersection(segment_2t<Scalar>(r.corner(1, 1), r.corner(1, 0)), s) ||

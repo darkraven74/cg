@@ -190,6 +190,14 @@ TEST(has_intersection, rectangle_segment)
    EXPECT_TRUE(cg::has_intersection(r, segment_2(point_2(-1.0, -1.0), point_2(1.0, 1.0))));
    EXPECT_TRUE(cg::has_intersection(r, segment_2(point_2(-2.0, -2.0), point_2(0.0, 0.0))));
 
+   EXPECT_FALSE(cg::has_intersection(r, segment_2(point_2(5.0, 5.0), point_2(8.0, 8.0))));
+   EXPECT_TRUE(cg::has_intersection(r, segment_2(point_2(-1.0, -1.0), point_2(0.0, 0.0))));
+   EXPECT_TRUE(cg::has_intersection(r, segment_2(point_2(-2.0, -2.0), point_2(0.0, 4.0))));
+
+   EXPECT_TRUE(cg::has_intersection(r, segment_2(point_2(1.0, 1.0), point_2(2.0, 2.0))));
+   EXPECT_TRUE(cg::has_intersection(r, segment_2(point_2(1.0, 1.0), point_2(2.0, 1.0))));
+
+
    range a(0, 2), b(0, 2);
    EXPECT_TRUE(cg::has_intersection(rectangle_2(a, b), segment_2(point_2(-2, 2), point_2(2, 2))));
    EXPECT_TRUE(cg::has_intersection(rectangle_2(a, b), segment_2(point_2(1, 1), point_2(1, 1.5))));
