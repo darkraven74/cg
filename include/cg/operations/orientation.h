@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/primitives/point.h"
+#include "cg/primitives/contour.h"
 #include <boost/numeric/interval.hpp>
 #include <gmpxx.h>
 
@@ -98,5 +99,22 @@ namespace cg
    inline bool collinear_are_ordered_along_line(point_2 const & a, point_2 const & b, point_2 const & c)
    {
       return (a <= b && b <= c) || (c <= b && b <= a);
+   }
+
+   inline bool counterclockwise(contour_2 const& c)
+   {
+      if (c.size() < 3)
+      {
+         return true;
+      }
+      contour_2::const_iterator it = std::min_element(c.begin(), c.end());
+      point_2 p_min = *it;
+      it--;
+      contour_2::circulator_t it_prev = c.circulator(it);
+      point_2 p_prev = *it_prev;
+      it += 2;
+      contour_2::circulator_t it_next = c.circulator(it);
+      point_2 p_next = *it_next;
+      return (orientation(p_prev, p_min, p_next) == CG_LEFT);
    }
 }
