@@ -109,3 +109,83 @@ TEST(contains, convex_contour_point3)
    EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(6, 6)));
    EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(10, 0)));
 }
+
+
+
+
+TEST(contains, contour_point)
+{
+   using cg::point_2;
+
+   std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0));
+
+
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(0, 5)));
+}
+
+TEST(contains, contour_point2)
+{
+   using cg::point_2;
+
+   std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0))
+                                                    (point_2(5, 0));
+
+
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(3, 0)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(5, 0)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(2, 2)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(3, 3)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(4, 4)));
+}
+
+TEST(contains, contour_point3)
+{
+   using cg::point_2;
+
+   std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0))
+                                                    (point_2(5, 0))
+                                                    (point_2(5, 5))
+                                                    (point_2(0, 5));
+
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 5)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(2, 2)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(4, 4)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(4, 5)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 2)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(6, 0)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(6, 6)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(10, 0)));
+}
+
+
+TEST(contains, contour_point4)
+{
+   using cg::point_2;
+
+   std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0))
+                                                    (point_2(10, 0))
+                                                    (point_2(5, 5))
+                                                    (point_2(10, 10))
+                                                    (point_2(0, 10));
+
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 5)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 10)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(5, 5)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(0, 7)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(1, 1)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(4, 4)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(6, 1)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(1, 8)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(5, 4)));
+   EXPECT_TRUE(cg::contains(cg::contour_2(pts), cg::point_2(6, 9)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(6, 5)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(9, 6)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(11, 0)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(15, 15)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(5, 11)));
+   EXPECT_FALSE(cg::contains(cg::contour_2(pts), cg::point_2(-1, -1)));
+}
