@@ -8,14 +8,14 @@
 
 namespace cg
 {
-   template<class Scalar>
-   bool contains_convex(contour_2t<Scalar> const & c, point_2t<Scalar> const & q)
+   // c is convex contour ccw orientation
+   inline bool convex_contains(contour_2 const & c, point_2 const & q)
    {
       switch (c.vertices_num())
       {
       case 0: return false;
       case 1: return c[0] == q;
-      case 2: return contains(segment_2t<Scalar>(c[0], c[1]), q);
+      case 2: return contains(segment_2(c[0], c[1]), q);
       }
 
       contour_2::const_iterator it = std::lower_bound(c.begin() + 2, c.end(), q,
@@ -32,4 +32,7 @@ namespace cg
    return (orientation(*(it - 1), *it, q) != CG_RIGHT);
 
    }
+
+   // c is ordinary contour
+   inline bool contains(contour_2 const & c, point_2 const & q);
 }
