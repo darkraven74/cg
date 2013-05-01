@@ -70,8 +70,8 @@ TEST(contains, convex_contour_point)
    std::vector<point_2> pts = boost::assign::list_of(point_2(0, 0));
 
 
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(0, 0)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(0, 5)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(0, 5)));
 }
 
 TEST(contains, convex_contour_point2)
@@ -82,12 +82,12 @@ TEST(contains, convex_contour_point2)
                                                     (point_2(5, 0));
 
 
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(0, 0)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(3, 0)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(5, 0)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(2, 2)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(3, 3)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(4, 4)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(3, 0)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(5, 0)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(2, 2)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(3, 3)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(4, 4)));
 }
 
 TEST(contains, convex_contour_point3)
@@ -99,13 +99,13 @@ TEST(contains, convex_contour_point3)
                                                     (point_2(5, 5))
                                                     (point_2(0, 5));
 
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(0, 0)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(0, 5)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(2, 2)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(4, 4)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(4, 5)));
-   EXPECT_TRUE(cg::contains_convex(cg::contour_2(pts), cg::point_2(0, 2)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(6, 0)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(6, 6)));
-   EXPECT_FALSE(cg::contains_convex(cg::contour_2(pts), cg::point_2(10, 0)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(0, 0)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(0, 5)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(2, 2)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(4, 4)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(4, 5)));
+   EXPECT_TRUE(cg::convex_contains(cg::contour_2(pts), cg::point_2(0, 2)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(6, 0)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(6, 6)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(10, 0)));
 }
