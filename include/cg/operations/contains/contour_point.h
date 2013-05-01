@@ -19,6 +19,11 @@ namespace cg
       case 2: return contains(segment_2(c[0], c[1]), q);
       }
 
+      if (cg::orientation(c[0], c[1], q) == CG_RIGHT)
+      {
+         return false;
+      }
+
       contour_2::const_iterator it = std::lower_bound(c.begin() + 2, c.end(), q,
                        [&c] (point_2 const& a, point_2 const& b)
                               {
