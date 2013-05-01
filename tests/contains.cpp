@@ -108,6 +108,7 @@ TEST(contains, convex_contour_point3)
    EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(6, 0)));
    EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(6, 6)));
    EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(10, 0)));
+   EXPECT_FALSE(cg::convex_contains(cg::contour_2(pts), cg::point_2(2, -1)));
 }
 
 

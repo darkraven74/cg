@@ -1,4 +1,5 @@
 
+
 #include <QColor>
 #include <QApplication>
 #include <vector>
@@ -9,14 +10,15 @@
 
 #include <cg/primitives/point.h>
 #include <cg/primitives/contour.h>
-#include <cg/operations/orientation.h>
+#include <cg/operations/contains/contour_point.h>
+#include <cg/operations/convex.h>
 
 using cg::point_2;
 using cg::point_2f;
 
-struct contour_orientation_viewer : cg::visualization::viewer_adapter
+struct contour_contains_point_viewer : cg::visualization::viewer_adapter
 {
-   contour_orientation_viewer()
+   contour_contains_point_viewer()
    {
       is_finished_ = false;
    }
@@ -35,7 +37,14 @@ struct contour_orientation_viewer : cg::visualization::viewer_adapter
       }
 
       cg::contour_2 c(points_);
-      cg::counterclockwise(c) ? drawer.set_color(Qt::green) : drawer.set_color(Qt::red);
+      if (cg::convex(c))
+      {
+         cg::convex_contains(c, cur_p_) ? drawer.set_color(Qt::green) : drawer.set_color(Qt::red);
+      }
+      else
+      {
+         cg::contains(c, cur_p_) ? drawer.set_color(Qt::green) : drawer.set_color(Qt::red);
+      }
 
       for (int i = 0; i < (int)points_.size() - 1; i++)
       {
@@ -52,7 +61,7 @@ struct contour_orientation_viewer : cg::visualization::viewer_adapter
                         << cg::visualization::endl
                         << "press r to restart"
                         << cg::visualization::endl
-                        << "if contour is green then it is ccw contour"
+                        << "if contour is green then it contains cursor point"
                         << cg::visualization::endl;
    }
 
@@ -110,11 +119,13 @@ struct contour_orientation_viewer : cg::visualization::viewer_adapter
 
    bool on_move(const point_2f & p)
    {
+
       if (!is_finished_)
       {
          return true;
       }
 
+      cur_p_ = p;
       if (cur_v_)
       {
          points_[*cur_v_] = p;
@@ -127,6 +138,7 @@ private:
 
 
    boost::optional<int> cur_v_;
+   cg::point_2 cur_p_;
    bool is_finished_;
    std::vector<cg::point_2> points_;
 };
@@ -134,6 +146,6 @@ private:
 int main(int argc, char ** argv)
 {
    QApplication app(argc, argv);
-   contour_orientation_viewer viewer;
-   cg::visualization::run_viewer(&viewer, "contour_orientation");
+   contour_contains_point_viewer viewer;
+   cg::visualization::run_viewer(&viewer, "contour_contains_point");
 }

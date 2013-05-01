@@ -17,3 +17,6 @@ target_link_libraries(rectangle_intersects_segment visualization ${GMP_LIBRARIES
 add_executable(contour_orientation contour_orientation.cpp)
 target_link_libraries(contour_orientation visualization ${GMP_LIBRARIES})
 
+add_executable(contour_contains_point contour_contains_point.cpp)
+target_link_libraries(contour_contains_point visualization ${GMP_LIBRARIES})
+
