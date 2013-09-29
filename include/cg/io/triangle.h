@@ -6,7 +6,7 @@
 namespace cg
 {
    template <class Scalar>
-   std::istream & operator >> (std::istream & in, circle_2t<Scalar> & tr)
+   std::istream & operator >> (std::istream & in, triangle_2t<Scalar> & tr)
    {
       using io::skip_char;
 

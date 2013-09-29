@@ -37,8 +37,4 @@ namespace cg
       point_2t<Scalar> center;
       Scalar radius;
    };
-
-
-
-
 }
