@@ -59,6 +59,10 @@ namespace cg
    OutIter simplify(BidIter p, BidIter q, double eps, OutIter out)
    {
       *out++ = *p;
+      if (p == q - 1)
+      {
+         return out;
+      }
       return simplify_impl(p, q, eps, out);
    }
 }

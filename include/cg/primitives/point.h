@@ -37,6 +37,13 @@ namespace cg
          y += delta.y;
          return *this;
       }
+
+      Scalar distance(point_2t<Scalar> p)
+      {
+         return sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y));
+      }
+
+
    };
 
    template <class Scalar>

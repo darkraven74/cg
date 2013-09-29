@@ -1,58 +1,40 @@
-
-
 #include <QColor>
 #include <QApplication>
 #include <vector>
 #include <boost/optional.hpp>
-
 #include "cg/visualization/viewer_adapter.h"
 #include "cg/visualization/draw_util.h"
-
+#include <cg/primitives/circle.h>
 #include <cg/primitives/point.h>
-#include <cg/primitives/contour.h>
-#include <cg/operations/contains/contour_point.h>
-#include <cg/operations/convex.h>
-
+#include <cg/operations/radius.h>
 using cg::point_2;
 using cg::point_2f;
 
-struct contour_contains_point : cg::visualization::viewer_adapter
+struct radius : cg::visualization::viewer_adapter
 {
-   contour_contains_point()
+   radius()
    {
       is_finished_ = false;
    }
 
    void draw(cg::visualization::drawer_type & drawer) const
    {
-      drawer.set_color(Qt::white);
-
-      if (!is_finished_)
+      drawer.set_color(Qt::red);
+      for (int i = 0; i < (int)points_.size(); i++)
       {
-         for (int i = 0; i < (int)points_.size() - 1; i++)
+         drawer.draw_point(points_[i], 3);
+      }
+      drawer.set_color(Qt::green);
+      if (is_finished_)
+      {
+         cg::circle_2 ans = cg::radius(points_.begin(), points_.end());
+         std::vector<cg::point_2> circle_pts = ans.points();
+         drawer.draw_point(ans.center, 3);
+         for (int i = 0; i < circle_pts.size(); i++)
          {
-            drawer.draw_line(points_[i], points_[i + 1]);
+            drawer.draw_point(circle_pts[i], 2);
          }
-         return;
       }
-
-      cg::contour_2 c(points_);
-      if (cg::convex(c))
-      {
-         cg::convex_contains(c, cur_p_) ? drawer.set_color(Qt::green) : drawer.set_color(Qt::red);
-      }
-      else
-      {
-         cg::contains(c, cur_p_) ? drawer.set_color(Qt::green) : drawer.set_color(Qt::red);
-      }
-
-      for (int i = 0; i < (int)points_.size() - 1; i++)
-      {
-         drawer.draw_line(points_[i], points_[i + 1]);
-      }
-      drawer.draw_line(points_[0], points_.back());
-
-
    }
 
    void print(cg::visualization::printer_type & p) const
@@ -61,7 +43,7 @@ struct contour_contains_point : cg::visualization::viewer_adapter
                         << cg::visualization::endl
                         << "press r to restart"
                         << cg::visualization::endl
-                        << "if contour is green then it contains cursor point"
+                        << "press f when finish"
                         << cg::visualization::endl;
    }
 
@@ -69,15 +51,6 @@ struct contour_contains_point : cg::visualization::viewer_adapter
    {
       if (!is_finished_)
        {
-          if (points_.size() > 1)
-          {
-             if (fabs(points_[0].x - p.x) < 15 && fabs(points_[0].y - p.y) < 15)
-             {
-                is_finished_ = true;
-                return true;
-             }
-          }
-
           points_.push_back(p);
           return true;
        }
@@ -90,7 +63,6 @@ struct contour_contains_point : cg::visualization::viewer_adapter
              return true;
           }
        }
-
        return true;
    }
 
@@ -100,9 +72,7 @@ struct contour_contains_point : cg::visualization::viewer_adapter
       {
          return true;
       }
-
      cur_v_.reset();
-
      return true;
    }
 
@@ -112,6 +82,11 @@ struct contour_contains_point : cg::visualization::viewer_adapter
          is_finished_ = false;
          points_.clear();
          cur_v_.reset();
+         return true;
+      }
+      if (key == Qt::Key_F)
+      {
+         is_finished_ = true;
          return true;
       }
       return false;
@@ -146,6 +121,6 @@ private:
 int main(int argc, char ** argv)
 {
    QApplication app(argc, argv);
-   contour_contains_point viewer;
-   cg::visualization::run_viewer(&viewer, "contour_contains_point");
+   radius viewer;
+   cg::visualization::run_viewer(&viewer, "radius");
 }
